@@ -80,7 +80,7 @@ def copy2clip(txt):
 def code(words):
 	output_text = ""
 	tmp_text = ""
-	
+
 	for each in words:
 		for char in each:
 			try:
@@ -97,8 +97,13 @@ def code(words):
 			output_text += tmp_text
 			tmp_text = ""
 		
+		# if len(words) != 1:
+		# 	tmp_text = char_key[" "] + tmp_text
+
 		if output_text[:len(char_key[" "]) * -1] != char_key[" "]:
 			tmp_text += char_key[" "]
+
+			#str replace
 
 	copy2clip(output_text)
 
@@ -112,11 +117,15 @@ def decode(text):
 
 choice = input("Code - c | d - Decode ").upper().strip()
 text = input("Insert text for translation: ").strip()
-if choice == "C":
-	code(text.split(" "))
-elif choice == "D":
-	decode(text)
+
+if len(text) <= 0:
+	print("Text haven't been found")
 else:
-	print("you have forgot to select")
+	if choice == "C":
+		code(text.split(" "))
+	elif choice == "D":
+		decode(text)
+	else:
+		print("you have forgot to select")
 
 print("Done")
