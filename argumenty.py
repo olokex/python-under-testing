@@ -1,14 +1,13 @@
 import argparse
-
-import sys
 import sys    
-import os    
-file_name =  os.path.basename(sys.argv[0])
+import os
+
+file_name = os.path.basename(sys.argv[0])
+
 class MyParser(argparse.ArgumentParser):
     def error(self, message):
-        sys.stderr.write('error: %s\n' % message)
         self.print_help()
-        sys.exit(2)
+        sys.exit(1)
 
 parser = MyParser(description='Example of use: {} -c lorem ipsum'.format(file_name))
 group = parser.add_mutually_exclusive_group()

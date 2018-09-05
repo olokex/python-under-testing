@@ -118,14 +118,11 @@ def decode(text):
 choice = input("Code - c | d - Decode ").upper().strip()
 text = input("Insert text for translation: ").strip()
 
-if len(text) <= 0:
-	print("Text haven't been found")
+if choice == "C":
+	code(text.split(" "))
+elif choice == "D":
+	decode(text)
 else:
-	if choice == "C":
-		code(text.split(" "))
-	elif choice == "D":
-		decode(text)
-	else:
-		print("you have forgot to select")
+	print("you have forgot to select")
 
 print("Done")
