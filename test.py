@@ -146,8 +146,8 @@ parser.add_argument("text", help="Insert text", type=str)
 args = parser.parse_args()
 
 if args.decode:
-	decode(args.text)
+	decode(args.text.strip())
 elif args.encode:
-	encode(args.text)
+	encode(args.text.strip())
 else:
 	parser.print_help()
