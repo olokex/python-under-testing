@@ -1,4 +1,8 @@
 import subprocess
+import argparse
+import sys    
+import os
+
 
 """
 reactions = [
@@ -77,7 +81,7 @@ def copy2clip(txt):
     cmd='echo '+txt.strip()+'|clip'
     return subprocess.check_call(cmd, shell=True)
 
-def code(words):
+def encode(words):
 	output_text = ""
 	tmp_text = ""
 
@@ -115,14 +119,35 @@ def decode(text):
 			print("chyba")
 	copy2clip(text)
 
-choice = input("Code - c | d - Decode ").upper().strip()
-text = input("Insert text for translation: ").strip()
+# choice = input("Code - c | d - Decode ").upper().strip()
+# text = input("Insert text for translation: ").strip()
+# 
+# if choice == "C":
+# 	code(text.split(" "))
+# elif choice == "D":
+# 	decode(text)
+# else:
+# 	print("you have forgot to select")
+# 
+# print("Done")
 
-if choice == "C":
-	code(text.split(" "))
-elif choice == "D":
-	decode(text)
+file_name = os.path.basename(sys.argv[0])
+
+class MyParser(argparse.ArgumentParser):
+    def error(self, message):
+        self.print_help()
+        sys.exit(1)
+
+parser = MyParser(description='Example of use: {} -e lorem ipsum'.format(file_name))
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-e", "--encode", help="Encode text into discord emoji", action="store_true", dest="encode")
+group.add_argument("-d", "--decode", help="Decode discord emoji into text", action="store_true", dest="decode")
+parser.add_argument("text", help="Insert text", type=str)
+args = parser.parse_args()
+
+if args.decode:
+	decode(args.text)
+elif args.encode:
+	encode(args.text)
 else:
-	print("you have forgot to select")
-
-print("Done")
+	parser.print_help()
