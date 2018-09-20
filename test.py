@@ -3,7 +3,6 @@ import argparse
 import sys    
 import os
 
-
 """
 reactions = [
 		":necktie:", ":black_joker:", ":smirk:", ":monorail:", ":slot_machine:", "thinking", ":grinning:", 
@@ -100,14 +99,6 @@ def encode(words):
 			output_text = ""
 			output_text += tmp_text
 			tmp_text = ""
-		
-		# if len(words) != 1:
-		# 	tmp_text = char_key[" "] + tmp_text
-
-		if output_text[:len(char_key[" "]) * -1] != char_key[" "]:
-			tmp_text += char_key[" "]
-
-			#str replace
 
 	copy2clip(output_text)
 
@@ -119,18 +110,6 @@ def decode(text):
 			print("chyba")
 	copy2clip(text)
 
-# choice = input("Code - c | d - Decode ").upper().strip()
-# text = input("Insert text for translation: ").strip()
-# 
-# if choice == "C":
-# 	code(text.split(" "))
-# elif choice == "D":
-# 	decode(text)
-# else:
-# 	print("you have forgot to select")
-# 
-# print("Done")
-
 file_name = os.path.basename(sys.argv[0])
 
 class MyParser(argparse.ArgumentParser):
@@ -138,7 +117,7 @@ class MyParser(argparse.ArgumentParser):
         self.print_help()
         sys.exit(1)
 
-parser = MyParser(description='Example of use: {} -e lorem ipsum'.format(file_name))
+parser = MyParser(description='Example of use: {} -e "lorem ipsum"'.format(file_name))
 group = parser.add_mutually_exclusive_group()
 group.add_argument("-e", "--encode", help="Encode text into discord emoji", action="store_true", dest="encode")
 group.add_argument("-d", "--decode", help="Decode discord emoji into text", action="store_true", dest="decode")
